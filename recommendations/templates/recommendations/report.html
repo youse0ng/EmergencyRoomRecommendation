@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "ko">
+<head>
+  <meta charset="UTF-8">  
+  <title>Emergency Reports</title>
+</head>
+<body>
+    <h1>Submit an Emergency Report</h1>
+    <form method="post" action="{% url 'recommendations:report' %}">
+        {% csrf_token %}
+        
+        <!-- Report Summary -->
+        <label for="report contents">신고 내용:</label><br>
+        <textarea id="report_contents" name="report_contents" rows="4" cols="50" placeholder="Enter the report contents here..." required></textarea><br><br>
+
+        <label for="latitude">위도:</label><br>
+        <input type="text" id="latitude" name="latitude" required><br><br>
+        
+        <label for="longitude">경도:</label><br>
+        <input type="text" id="longitude" name="longitude" required><br><br>
+        
+        <label for="report_time">신고 시각:</label><br>
+        <input type="datetime-local" id="report_time" name="report_time"><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">제출</button>
+    </form>
+    <ul>
+        {% for report in reports %}
+            <li>
+                <strong>Summary:</strong> {{ report.report_summary }}<br>
+                <strong>Latitude:</strong> {{ report.latitude }}<br>
+                <strong>Longitude:</strong> {{ report.longitude }}<br>
+                <strong>Reported At:</strong> {{ report.report_time }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+  
